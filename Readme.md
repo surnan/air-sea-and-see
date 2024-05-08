@@ -1,8 +1,9 @@
-# `<name of application here>`
+# `Air-Sea-and-See`
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+
+![MY DB SCHEMA](Readme_DB_v1.png)
 
 ## API Documentation
 
