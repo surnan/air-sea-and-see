@@ -10,6 +10,7 @@ app.use('/reviews', require('./routes/reviews'));
 app.use('/spots', require('./routes/spots'));
 app.use('/pics', require('./routes/pics'));
 app.use('/bookings', require('./routes/bookings'));
+app.use('/search', require('./routes/search'));
 
 
 //PUT IN BY ME --- BELOW
