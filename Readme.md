@@ -157,7 +157,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /users/new
+  * URL: /users
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -392,7 +392,8 @@ Creates and returns a new spot.
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /spots/new
+  * URL: /spots
+
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -466,7 +467,7 @@ Create and return a new image for a spot specified by id.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: POST
-  * URL: /spots/:id/pics/new
+  * URL: /spots/:id/pics
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -823,7 +824,7 @@ Create and return a new image for a review specified by id.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: POST
-  * URL: /reviews/:id/pics/new
+  * URL: /reviews/:id/pics
   * Headers:
     * Content-Type: application/json
   * Body:
