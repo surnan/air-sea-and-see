@@ -12,19 +12,9 @@ const isProduction = environment === 'production';
 const app = express();
 app.use(morgan('dev'));
 app.use(cookieParser());
-const csrfProtection = csurf({ cookie: true });
-// Use csrfProtection middleware for routes that require CSRF protection
-app.use(csrfProtection);
 app.use(express.json());
-// backend/app.js
 
-const routes = require('./routes');
-
-// ...
-
-app.use(routes); // Connect all the routes
-
-
+//PRE REQUEST MIDDLEWARE - START
 // Security Middleware
 if (!isProduction) {
   // enable cors only in development
@@ -48,6 +38,22 @@ app.use(
     }
   })
 );
+//PRE REQUEST MIDDLEWARE - END
+// backend/app.js
+const routes = require('./routes');
+app.use(routes); // Connect all the routes
+
+
+// const csrfProtection = csurf({ cookie: true });
+// // Use csrfProtection middleware for routes that require CSRF protection
+// app.use(csrfProtection);
+
+
+
+
+
+
+
 
 module.exports = app;
 
