@@ -63,7 +63,7 @@ router.post(
 router.delete(
     '/',
     (_req, res) => {
-        console.log("!!ENTERED DELETE ROUTE!!")
+        // console.log("!!ENTERED DELETE ROUTE!!")
         res.clearCookie('token');
         return res.json({ message: 'success' });
     }
