@@ -5,9 +5,11 @@ const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
-
+const routes = require('./routes');
 const { environment } = require('./config');
 const isProduction = environment === 'production';
+// Process sequelize errors
+const { ValidationError } = require('sequelize');
 
 const app = express();
 app.use(morgan('dev'));
@@ -40,9 +42,10 @@ app.use(
 );
 //PRE REQUEST MIDDLEWARE - END
 // backend/app.js
-const routes = require('./routes');
 
 
+
+app.use(routes); // run it before the error handlers.  
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
@@ -53,10 +56,6 @@ app.use((_req, _res, next) => {
   next(err);
 });
 
-// Process sequelize errors
-const { ValidationError } = require('sequelize');
-
-app.use(routes); // run it before the error handlers.  
 //You will dig into all the files looking formatching routes 
 //& only upon failure continue to /n
 
