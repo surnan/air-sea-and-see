@@ -20,7 +20,7 @@ module.exports = {
       }
     },
     define: {
-      schema: my_aa_schema
+      schema: process.env.SCHEMA
     }
   }
 };
@@ -30,4 +30,9 @@ module.exports = {
 
 // define: {
 //   schema: process.env.SCHEMA
+// }
+
+
+// define: {
+//   schema: my_aa_schema
 // }
