@@ -41,11 +41,14 @@ app.use(
   })
 );
 //PRE REQUEST MIDDLEWARE - END
-// backend/app.js
 
+// app.get('/hello/world', function(req, res){
+//   res.cookie('XSRF-TOKEN', req.csrfToken())
+//   res.send('Hello World')
+// })
 
+app.use(routes); // const routes = require('./routes');
 
-app.use(routes); // run it before the error handlers.  
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {

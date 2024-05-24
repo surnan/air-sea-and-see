@@ -11,7 +11,8 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await User.bulkCreate(options, [
+    console.log("Starting seed process");
+    await User.bulkCreate([
       {
         email: 'demo@user.io',
         username: 'Demo-lition',
@@ -28,10 +29,11 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password3')
       }
     ], { validate: true });
+    console.log("Seed process completed");
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = 'Users';
+    options.tableName = 'User';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
