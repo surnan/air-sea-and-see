@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  
+
   Spot.init({
     ownerId: {
       type: DataTypes.INTEGER
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     city: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(100),
       allowNull: false
     },
     state: {
@@ -30,11 +30,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     lat: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(18,15),
       allowNull: false
     },
     lng: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(18,15),
       allowNull: false
     },
     name: {
@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     price: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10,2),
       allowNull: false
     },
   }, {
