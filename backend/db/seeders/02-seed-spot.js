@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await Spot.bulkCreate([ //??? Spot.bulkCreate(options, [  
+    await Spot.bulkCreate([ 
       {
         ownerId: 3,
         address: "One Park Avenue",
@@ -53,6 +53,9 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete(null, {}); ///bulkDelete(options, )
+    return queryInterface.bulkDelete(options, {
+      name: { [Op.in]: ['NYU Langone Headquarters', 'Peachtree Suites', 'Boogy Down Bronx'] }
+    },
+    {});
   }
 };

@@ -11,7 +11,6 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    console.log("Starting seed process");
     await User.bulkCreate([
       {
         email: 'demo@user.io',
@@ -31,12 +30,11 @@ module.exports = {
     ],
       { validate: true },
       options);
-    console.log("Seed process completed");
   },
 
   async down(queryInterface, Sequelize) {
-    options.tableName = 'User';
-    const Op = Sequelize.Op;
+    // options.tableName = 'User';
+    // const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
     }, {});
