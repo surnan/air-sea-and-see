@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
+  
   Spot.init({
     ownerId: {
       type: DataTypes.INTEGER

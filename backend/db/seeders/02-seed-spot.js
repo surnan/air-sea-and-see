@@ -4,12 +4,12 @@ const { Spot } = require('../models');
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
+  options.schema = process.env.SCHEMA;
+  options.tableName = "Spots"
 }
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    options.tableName = "Spots"; // Ensure tableName is within options
     await Spot.bulkCreate([ 
       {
         ownerId: 3,
@@ -55,7 +55,6 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     const Op = Sequelize.Op;
-    options.tableName = "Spots"; // Ensure tableName is within options
     return queryInterface.bulkDelete(options, {
       name: { [Op.in]: ['NYU Langone Headquarters', 'Peachtree Suites', 'Boogy Down Bronx'] }
     },{});
