@@ -47,10 +47,8 @@ module.exports = {
         description: "Where Hip Hop as born",
         price: 75,
       }
-    ], {
-      validate: true,
-      ...options // Spread options to include schema and tableName
-    });
+    ], { validate: true },
+    options);
   },
 
   async down(queryInterface, Sequelize) {

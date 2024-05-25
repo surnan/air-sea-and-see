@@ -24,15 +24,3 @@ module.exports = {
     }
   }
 };
-
-
-
-
-// define: {
-//   schema: process.env.SCHEMA
-// }
-
-
-// define: {
-//   schema: my_aa_schema
-// }
