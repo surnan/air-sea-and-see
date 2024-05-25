@@ -1,7 +1,6 @@
 'use strict';
 
 const { Spot } = require('../models');
-const bcrypt = require("bcryptjs");
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -11,7 +10,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await Spot.bulkCreate([
+    await Spot.bulkCreate([ //??? Spot.bulkCreate(options, [  
       {
         ownerId: 3,
         address: "One Park Avenue",
@@ -42,17 +41,18 @@ module.exports = {
         city: "Bronx",
         state: "NY",
         country: "USA",
-        lat: 40.82595300239568, 
+        lat: 40.82595300239568,
         lng: -73.87838826939743,
         name: "Boogy Down Bronx",
         description: "Where Hip Hop as born",
         price: 75,
       }
-    ], { validate: true });
-
+    ],
+      { validate: true },
+      options);
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Spot', null, {});
+    await queryInterface.bulkDelete('Spot', null, {}); ///bulkDelete(options, )
   }
 };

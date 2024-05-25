@@ -13,7 +13,12 @@ router.use('/users', usersRouter);
 
 
 router.post('/test', function (req, res) {
+
+  try {
     res.json({ requestBody: req.body });
+  } catch {
+    return res.json("Error on /api/test.  Did you include XSRF-TOKEN?")
+  }
 });
 
 
