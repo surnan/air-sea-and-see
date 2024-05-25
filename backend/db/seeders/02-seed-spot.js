@@ -52,10 +52,15 @@ module.exports = {
       options);
   },
 
+  // async down(queryInterface, Sequelize) {
+  //   return queryInterface.bulkDelete(options, {
+  //     name: { [Op.in]: ['NYU Langone Headquarters', 'Peachtree Suites', 'Boogy Down Bronx'] }
+  //   },{});
+  // }
   async down(queryInterface, Sequelize) {
+    const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       name: { [Op.in]: ['NYU Langone Headquarters', 'Peachtree Suites', 'Boogy Down Bronx'] }
-    },
-    {});
+    },{});
   }
 };
