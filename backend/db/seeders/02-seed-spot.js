@@ -4,14 +4,14 @@ const { Spot } = require('../models');
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  
+  options.schema = process.env.SCHEMA;
   // options.tableName = "Spots"
 }
 
 module.exports = {
   async up(queryInterface, Sequelize) {
     options.tableName = "Spots"; // Ensure tableName is within options
-    await Spot.bulkCreate([ 
+    await Spot.bulkCreate([
       {
         ownerId: 3,
         address: "One Park Avenue",
@@ -49,8 +49,10 @@ module.exports = {
         price: 75,
       }
     ],
-      { validate: true },
-      options);
+      {
+        validate: true,
+        ...options
+      });
   },
 
   async down(queryInterface, Sequelize) {
@@ -58,6 +60,6 @@ module.exports = {
     options.tableName = "Spots"; // Ensure tableName is within options
     return queryInterface.bulkDelete(options, {
       name: { [Op.in]: ['NYU Langone Headquarters', 'Peachtree Suites', 'Boogy Down Bronx'] }
-    },{});
+    }, {});
   }
 };
