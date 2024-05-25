@@ -93,7 +93,7 @@ npx sequelize model:generate --name User --attributes username:string,email:stri
 This will create a file in your `backend/db/migrations` folder and a file called
 `user.js` in your `backend/db/models` folder.
 
-In the migration file, apply the constraints in the schema. Remember to define
+In the migration file, apply the constraints in the . Remember to define
 the default constraints for the `createdAt` and `updatedAt` columns.
 
 You should
