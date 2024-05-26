@@ -1,12 +1,14 @@
 // backend/routes/api/users.js
 const express = require('express');
-const bcrypt = require('bcryptjs');
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
-const router = express.Router();
+const bcrypt  = require('bcryptjs');
+const router  = express.Router();
+
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { requireAuth, setTokenCookie } = require('../../utils/auth');
+const { User } = require('../../db/models');
+
 
 
 const validateSignup = [
@@ -31,10 +33,7 @@ const validateSignup = [
 
 
 // Sign up
-router.post(
-  '/',
-  validateSignup,
-  async (req, res) => {
+router.post('/', validateSignup, async (req, res) => {
     const { email, password, username } = req.body;
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({ email, username, hashedPassword });
@@ -45,6 +44,7 @@ router.post(
       username: user.username,
     };
 
+    //generate JWT so user can sign-in
     await setTokenCookie(res, safeUser);
 
     return res.json({
