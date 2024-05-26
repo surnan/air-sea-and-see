@@ -84,7 +84,7 @@ module.exports = {
         price: 75,
       },
       {
-        ownerId: 3,
+        ownerId: 6,
         address: "33 Johnson Street",
         city: "Weehawken",
         state: "NJ",

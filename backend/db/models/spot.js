@@ -4,41 +4,45 @@ const {Model, Validator} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Spot extends Model {
     static associate(models) {
-      // define association here
+      Spot.belongsTo(models.User, {
+        foreignKey: 'ownerId'
+      })
     }
   }
 
   Spot.init({
     ownerId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {model: 'Users'}
     },
     address: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
     city: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING,
       allowNull: false
     },
     state: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.STRING,
       allowNull: false
     },
     country: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING,
       allowNull: false
     },
     lat: {
-      type: DataTypes.DECIMAL(18,15),
+      type: DataTypes.DECIMAL,
       allowNull: false
     },
     lng: {
-      type: DataTypes.DECIMAL(18,15),
+      type: DataTypes.DECIMAL,
       allowNull: false
     },
     name: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
@@ -47,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     price: {
-      type: DataTypes.DECIMAL(10,2),
+      type: DataTypes.DECIMAL,
       allowNull: false
     },
   }, {

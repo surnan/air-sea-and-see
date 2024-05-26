@@ -4,7 +4,6 @@
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
-  options.tableName = "Users"
 }
 
 
@@ -18,22 +17,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       username: {
-        type: Sequelize.STRING(30),
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true
       },
       firstName: {
-        type: Sequelize.STRING(30),
+        type: Sequelize.STRING,
         allowNull: false,
         unique: false
       },
       lastName: {
-        type: Sequelize.STRING(30),
+        type: Sequelize.STRING,
         allowNull: false,
         unique: false
       },
       email: {
-        type: Sequelize.STRING(256),
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true
       },
@@ -54,6 +53,7 @@ module.exports = {
     },options);
   },
   async down(queryInterface, Sequelize) {
+    options.tableName = "Users";
     return queryInterface.dropTable(options);
   }
 };

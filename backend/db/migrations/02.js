@@ -4,7 +4,6 @@
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
-  options.tableName = "Spots"
 }
 
 module.exports = {
@@ -17,44 +16,46 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ownerId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model: 'Users'}
       },
       address: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true
       },
       city: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING,
         allowNull: false
       },
       state: {
-        type: Sequelize.STRING(25),
+        type: Sequelize.STRING,
         allowNull: false
       },
       country: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING,
         allowNull: false
       },
       lat: {
-        type: Sequelize.DECIMAL(18, 15),
+        type: Sequelize.DECIMAL,
         allowNull: false
       },
       lng: {
-        type: Sequelize.DECIMAL(18,15),
+        type: Sequelize.DECIMAL,
         allowNull: false
       },
       name: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true
       },
       description: {
-        type: Sequelize.STRING(250),
+        type: Sequelize.STRING,
         allowNull: false
       },
       price: {
-        type: Sequelize.DECIMAL(10,2),
+        type: Sequelize.DECIMAL,
         allowNull: false
       },
       createdAt: {
@@ -70,6 +71,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
+    options.tableName = "Spots";
     return queryInterface.dropTable(options);
   }
 };
