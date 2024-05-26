@@ -573,6 +573,7 @@ const restoreUser = (req, res, next) => {
           include: ['email', 'createdAt', 'updatedAt']
         }
       });
+      await setTokenCookie(res, req.user)
     } catch (e) {
       res.clearCookie('token');
       return next();

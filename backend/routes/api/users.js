@@ -1,7 +1,7 @@
 // backend/routes/api/users.js
 const express = require('express');
-const bcrypt  = require('bcryptjs');
-const router  = express.Router();
+const bcrypt = require('bcryptjs');
+const router = express.Router();
 
 
 const { check } = require('express-validator');
@@ -28,29 +28,63 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
     .withMessage('Password must be 6 characters or more.'),
+  check('firstName')
+    .exists({ checkFalsy: true })
+    .isLength({ min: 1 })
+    .withMessage('Please provide first name.'),
+  check('lastName')
+    .exists({ checkFalsy: true })
+    .isLength({ min: 1 })
+    .withMessage('Please provide last name.'),
   handleValidationErrors
 ];
 
 
 // Sign up
-router.post('/', validateSignup, async (req, res) => {
-    const { email, password, username } = req.body;
-    const hashedPassword = bcrypt.hashSync(password);
-    const user = await User.create({ email, username, hashedPassword });
+router.post('/', validateSignup, async (req, res, next) => {
+  const { email, firstName, lastName, password, username } = req.body;
 
-    const safeUser = {
-      id: user.id,
-      email: user.email,
-      username: user.username,
-    };
+  const hasEmail = await User.findOne({where: {email}})
+  const hasUserName = await User.findOne({where: {email}})
 
-    //generate JWT so user can sign-in
-    await setTokenCookie(res, safeUser);
-
-    return res.json({
-      user: safeUser
-    });
+  if (hasEmail){
+    const err = new Error("Signup Failed")
+    err.status  = 500;
+    err.title   = 'Error: Email'
+    err.errors  = {signup: 'Email already registered'}
+    return next(err)
   }
+  
+
+  if (hasUserName){
+    const err = new Error("Signup Failed")
+    err.status  = 500;
+    err.title   = 'Error: Username'
+    err.errors  = {signup: 'Username already registered'}
+    return next(err)
+  }
+
+
+  //User does not exist
+  const hashedPassword = bcrypt.hashSync(password);
+  const user = await User.create({ email, firstName, lastName, username, hashedPassword });
+
+  const safeUser = {
+    id: user.id,
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    username: user.username,
+  };
+
+  //generate JWT so user sign-in
+  await setTokenCookie(res, safeUser);
+
+  //return safe user with JWT cookie
+  return res.json({
+    user: safeUser
+  });
+}
 );
 
 module.exports = router;
